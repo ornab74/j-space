@@ -2,7 +2,7 @@
 
 Use from the V6 notebook after class-definition cells:
 
-    !wget -q https://raw.githubusercontent.com/ornab74/j-space/fix/v7-repo-management/humoid_v7_colab_install.py -O /content/humoid_v7_colab_install.py
+    !wget -q https://raw.githubusercontent.com/ornab74/j-space/main/humoid_v7_colab_install.py -O /content/humoid_v7_colab_install.py
     %run /content/humoid_v7_colab_install.py
 """
 
@@ -12,12 +12,13 @@ import urllib.request
 
 MODULE_URL = (
     "https://raw.githubusercontent.com/ornab74/j-space/"
-    "fix/v7-repo-management/humoid_v7_repo_management.py"
+    "main/humoid_v7_repo_management.py"
 )
 MODULE_PATH = Path("/content/humoid_v7_repo_management.py")
 
-if not MODULE_PATH.exists():
-    urllib.request.urlretrieve(MODULE_URL, MODULE_PATH)
+# Always refresh the small compatibility module so a resumed Colab runtime gets
+# the latest repository-management fixes from main.
+urllib.request.urlretrieve(MODULE_URL, MODULE_PATH)
 
 spec = importlib.util.spec_from_file_location(
     "humoid_v7_repo_management",
